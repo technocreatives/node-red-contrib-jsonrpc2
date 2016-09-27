@@ -1,0 +1,179 @@
+<script type="text/x-red" data-template-name="jsonrpc call">
+    <div class="form-row">
+        <label for="node-input-client"><i class="fa fa-globe"></i> Json RPC Client</label>
+        <input type="text" id="node-input-client">
+    </div>
+    <div class="form-row">
+        <label for="node-input-method"><i class="fa fa-tasks"></i> Method</label>
+        <input type="text" id="node-input-method">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="jsonrpc call">
+    <p>Performs a method call to an JSON RPC server.</p>
+    <p>Outputs the returned value.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('jsonrpc call',{
+        category: 'function',
+        defaults: {
+            name: {value:""},
+            method: {value:"",required:true},
+            client: {type:"jsonrpc-client", required:true}
+        },
+        color:"#d8d8bf",
+        inputs:1,
+        outputs:1,
+        icon: "jsonrpc.png",
+        label: function() {
+            return this.name||this.method||"jsonrpc";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="jsonrpc listen">
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-globe"></i> JSON RPC Server</label>
+        <input type="text" id="node-input-server">
+    </div>
+    <div class="form-row">
+        <label for="node-input-method"><i class="fa fa-tasks"></i> Method</label>
+        <input type="text" id="node-input-method">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="jsonrpc listen">
+    <p>Listens to JSON RPC calls.</p>
+    <p>Outputs the params in the method call</p>
+    <p>Flow must terminate in an jsonrpc reponse node for the response to be sent back to the client</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('jsonrpc listen',{
+        category: 'input',
+        defaults: {
+            name: {value:""},
+            method: {value:"",required:true},
+            server: {type:"jsonrpc-server", required:true}
+        },
+        color:"#d8d8bf",
+        inputs:0,
+        outputs:1,
+        icon: "jsonrpc.png",
+        label: function() {
+            return this.name||this.method||"jsonrpc";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="jsonrpc response">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="jsonrpc response">
+    <p>The messages sent to this node must originate from an jsonrpc listen node.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('jsonrpc response',{
+        category: 'output',
+        defaults: {
+            name: {value:""}
+        },
+        color:"#d8d8bf",
+        inputs:1,
+        outputs:0,
+        icon: "jsonrpc.png",
+        label: function() {
+            return this.name||"jsonrpc";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+
+<!-- Server Config -->
+
+<script type="text/x-red" data-template-name="jsonrpc-server">
+
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-user"></i> Name</label>
+        <input type="text" id="node-config-input-name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-config-input-host"><i class="fa fa-user"></i> Host</label>
+        <input type="text" id="node-config-input-host">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-port"><i class="fa fa-user"></i> Port</label>
+        <input type="text" id="node-config-input-port">
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('jsonrpc-server',{
+        category: 'config',
+        defaults: {
+            name:   { value:"" },
+            host:   { value:"localhost" },
+            port:   { value:"9090" }
+        },
+        label: function() {
+            return this.name || "";
+        }
+    });
+</script>
+
+<!-- Client Config -->
+
+<script type="text/x-red" data-template-name="jsonrpc-client">
+
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-user"></i> Name</label>
+        <input type="text" id="node-config-input-name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-config-input-host"><i class="fa fa-user"></i> Host</label>
+        <input type="text" id="node-config-input-host">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-port"><i class="fa fa-user"></i> Port</label>
+        <input type="text" id="node-config-input-port">
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('jsonrpc-client',{
+        category: 'config',
+        defaults: {
+            name:   { value:"" },
+            host:   { value:"localhost" },
+            port:   { value:"9090" }
+        },
+        label: function() {
+            return this.name || "";
+        }
+    });
+</script>
+
