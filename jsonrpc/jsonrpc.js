@@ -90,8 +90,8 @@ module.exports = function(RED) {
 
       node.setUserStatus({fill:'blue',shape:'dot',text:'connecting'});
 
-      node.client = rpc.Client.$create(port: node.port, host: node.host);
-
+      node.client = rpc.Client.$create(node.port, node.host);
+      
       switch(this.connection) {
         case 'http': {
           // no connection required
