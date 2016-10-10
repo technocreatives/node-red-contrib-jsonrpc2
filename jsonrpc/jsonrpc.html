@@ -1,4 +1,68 @@
-<script type="text/x-red" data-template-name="jsonrpc call">
+<!-- Client Config -->
+
+<script type="text/x-red" data-template-name="jsonrpc-client">
+
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-user"></i> Name</label>
+        <input type="text" id="node-config-input-name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-config-input-host"><i class="fa fa-user"></i> Host</label>
+        <input type="text" id="node-config-input-host">
+    </div>
+
+    <div class="form-row">
+        <label for="node-config-input-port"><i class="fa fa-user"></i> Port</label>
+        <input type="text" id="node-config-input-port">
+    </div>
+
+    <div class="form-row">
+        <label for="node-config-input-connection"><i class="icon-tag"></i> Connection Type</label>
+        <select id="node-config-input-connection" >
+            <option value='http'>HTTP</option>
+            <option value='ws'>Websocket</option>
+            <option value='socket'>Raw Socket</option>
+        </select>
+        <div class="form-row netstring-row hidden" id="netstring-row">
+            <label>&nbsp;</label>
+            <input type="checkbox" id="node-config-input-netstring" style="display: inline-block; width: auto; vertical-align: top;">
+            <label for="node-config-input-netstring" style="width: 70%;">Netstring</label>
+        </div>
+    </div>
+
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('jsonrpc-client',{
+        category: 'config',
+        defaults: {
+            name:      { value:"" },
+            host:      { value:"localhost", required: true },
+            port:      { value:"8000", required: true },
+            connection:{ value: "ws", required: true},
+            netstring: { value: false }
+        },
+        label: function() {
+            return this.name || "";
+        },
+        oneditprepare: function() {
+            $("#node-config-input-connection").change(function(){
+                var connection = $("#node-config-input-connection").val();
+
+                if(connection === 'socket') {
+                    $('#netstring-row').show();
+                } else {
+                    $('#netstring-row').hide();
+                    $('#node-config-input-netstring').prop('checked', false);
+                }
+            });
+            
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="jsonrpc-call">
     <div class="form-row">
         <label for="node-input-client"><i class="fa fa-globe"></i> Json RPC Client</label>
         <input type="text" id="node-input-client">
@@ -13,17 +77,17 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="jsonrpc call">
+<script type="text/x-red" data-help-name="jsonrpc-call">
     <p>Performs a method call to an JSON RPC server.</p>
     <p>Outputs the returned value.</p>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('jsonrpc call',{
+    RED.nodes.registerType('jsonrpc-call',{
         category: 'function',
         defaults: {
             name: {value:""},
-            method: {value:"",required:true},
+            method: {value:""},
             client: {type:"jsonrpc-client", required:true}
         },
         color:"#d8d8bf",
@@ -38,6 +102,8 @@
         }
     });
 </script>
+
+<!-- TODO: implement listener and response nodes
 
 <script type="text/x-red" data-template-name="jsonrpc listen">
     <div class="form-row">
@@ -111,7 +177,10 @@
     });
 </script>
 
-<!-- Server Config -->
+
+end server nodes -->
+
+<!-- Server Config 
 
 <script type="text/x-red" data-template-name="jsonrpc-server">
 
@@ -144,36 +213,5 @@
     });
 </script>
 
-<!-- Client Config -->
-
-<script type="text/x-red" data-template-name="jsonrpc-client">
-
-    <div class="form-row">
-        <label for="node-config-input-name"><i class="fa fa-user"></i> Name</label>
-        <input type="text" id="node-config-input-name">
-    </div>
-
-    <div class="form-row">
-        <label for="node-config-input-host"><i class="fa fa-user"></i> Host</label>
-        <input type="text" id="node-config-input-host">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-port"><i class="fa fa-user"></i> Port</label>
-        <input type="text" id="node-config-input-port">
-    </div>
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('jsonrpc-client',{
-        category: 'config',
-        defaults: {
-            name:   { value:"" },
-            host:   { value:"localhost" },
-            port:   { value:"9090" }
-        },
-        label: function() {
-            return this.name || "";
-        }
-    });
-</script>
+-->
 
