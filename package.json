@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-jsonrpc2",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Node RED wrapper arround a JSON RPC 2.0 implementation.",
   "main": "index.js",
   "scripts": {
