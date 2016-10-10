@@ -129,6 +129,9 @@ module.exports = function(RED) {
       if(node.connection === 'http') {
         node.client.call(method, params, cb);
       } else {
+        if(!node.conn) {
+          return cb(new Error('not connected'), null);
+        }
         node.conn.call(method, params, cb);
       }
     };
