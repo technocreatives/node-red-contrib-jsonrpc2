@@ -10,8 +10,6 @@ module.exports = function(RED) {
     this.port = parseInt(n.port);
     this.path = n.path;
     this.connection = n.connection;
-    this.netstring = n.netstring ? true : false;
-
 
     // Node state
     this.connected = false;
@@ -92,7 +90,7 @@ module.exports = function(RED) {
 
       node.setUserStatus({fill:'blue',shape:'dot',text:'connecting'});
 
-      node.client = rpc.Client.$create({port: node.port, host: node.host, netstring: node.netstring});
+      node.client = rpc.Client.$create(port: node.port, host: node.host);
 
       switch(this.connection) {
         case 'http': {

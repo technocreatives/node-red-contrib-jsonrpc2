@@ -24,11 +24,6 @@
             <option value='ws'>Websocket</option>
             <option value='socket'>Raw Socket</option>
         </select>
-        <div class="form-row netstring-row hidden" id="netstring-row">
-            <label>&nbsp;</label>
-            <input type="checkbox" id="node-config-input-netstring" style="display: inline-block; width: auto; vertical-align: top;">
-            <label for="node-config-input-netstring" style="width: 70%;">Netstring</label>
-        </div>
     </div>
 
 </script>
@@ -40,24 +35,10 @@
             name:      { value:"" },
             host:      { value:"localhost", required: true },
             port:      { value:"8000", required: true },
-            connection:{ value: "ws", required: true},
-            netstring: { value: false }
+            connection:{ value: "ws", required: true}
         },
         label: function() {
             return this.name || "";
-        },
-        oneditprepare: function() {
-            $("#node-config-input-connection").change(function(){
-                var connection = $("#node-config-input-connection").val();
-
-                if(connection === 'socket') {
-                    $('#netstring-row').show();
-                } else {
-                    $('#netstring-row').hide();
-                    $('#node-config-input-netstring').prop('checked', false);
-                }
-            });
-            
         }
     });
 </script>
