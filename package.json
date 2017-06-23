@@ -4,8 +4,7 @@
   "description": "Node RED wrapper arround a JSON RPC 2.0 implementation.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "git submodule update --init"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
